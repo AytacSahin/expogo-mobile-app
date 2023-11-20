@@ -2,6 +2,8 @@
 
 # dependencies
 node_modules/
+yarn.lock
+package-lock.json
 
 # Expo
 .expo/
@@ -29,7 +31,11 @@ yarn-error.*
 *.pem
 
 # local env files
-.env*.local
+.env*
 
 # typescript
 *.tsbuildinfo
+
+# Android and iOS build folders
+android/app/build/
+ios/build/

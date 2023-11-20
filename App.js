@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
+
 import Intro from './components/1-Intro/intro';
-import Draw from './components/2-DrawAI/Draw';
+import Draw from './components/2-DrawAI/draw';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -13,17 +14,20 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={() => (
-            <View style={styles.homecontaniner}>
+
+        <Stack.Screen name="Home" options={{ headerShown: false }}>
+          {/* headerShown: üst menüyü gizliyor. */}
+          {(props) => (
+            <View style={styles.homecontainer}>
               <StatusBar style="auto" />
-              <Intro />
+              <Intro {...props} />
             </View>
           )}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="ai" component={Draw} />
+        </Stack.Screen>
+
+        <Stack.Screen name="ai" options={{ headerShown: false }} component={Draw} >
+        </Stack.Screen>
+
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -31,7 +35,7 @@ export default function App() {
 };
 
 const styles = StyleSheet.create({
-  homecontaniner: {
+  homecontainer: {
     flex: 1,
     backgroundColor: 'white',
   },

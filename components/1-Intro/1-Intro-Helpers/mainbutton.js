@@ -1,6 +1,5 @@
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import Draw from '../../2-DrawAI/Draw.js';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Mainbutton() {
@@ -9,7 +8,7 @@ export default function Mainbutton() {
     const [showButton, setShowButton] = React.useState(false);
 
     React.useEffect(() => {
-        // 10 saniye sonra butonu göster
+        // belirli bir süre sonra butonu gösterdim:
         const timer = setTimeout(() => {
             setShowButton(true);
         }, 5000);
@@ -19,11 +18,8 @@ export default function Mainbutton() {
     }, []);
 
     const handleButtonPress = () => {
-        // Butona basıldığında burada istediğiniz sayfaya yönlendirme işlemini gerçekleştirebilirsiniz.
-        // Örneğin: navigation.navigate('HedefSayfa');
         console.log('Butona basıldı');
-        navigation.navigate('Draw');
-
+        navigation.navigate('ai');
     };
 
     return (

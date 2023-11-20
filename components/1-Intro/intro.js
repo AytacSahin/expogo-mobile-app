@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import { Video } from 'expo-av';
+
 import AnimatedText from './1-Intro-Helpers/animatedtext';
 import Music from './1-Intro-Helpers/music';
 import Mainbutton from './1-Intro-Helpers/mainbutton';
@@ -23,7 +24,7 @@ export default function Intro() {
                 style={StyleSheet.absoluteFillObject} // Videoyu ekranı kaplayacak şekilde ayarladım.
             />
             <View style={styles.overlay}>
-                <AnimatedText text='“Hayattaki sıradan şeyleri sıra dışı bir şekilde yaptığınızda, dünyanın dikkatini çekeceksiniz.” George Washington Carver' style={styles.text}>Mobile App</AnimatedText>
+                <AnimatedText text='“Hayattaki sıradan şeyleri sıra dışı bir şekilde yaptığınızda, dünyanın dikkatini çekeceksiniz.” George Washington Carver' style={styles.text}/>
                 <Mainbutton />
             </View>
             <StatusBar style="auto" />
@@ -38,7 +39,6 @@ const styles = StyleSheet.create({
     },
     overlay: {
         ...StyleSheet.absoluteFillObject,
-        // alignItems: 'center',
     },
     text: {
         fontSize: 28,
