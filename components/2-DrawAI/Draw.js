@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, ActivityIndicator, Image, TouchableOpacity, Keyboard } from 'react-native'
+import { View, Text, StyleSheet, ActivityIndicator, Image, TouchableOpacity, Keyboard, ToastAndroid, ImageBackground } from 'react-native'
 import { StatusBar } from 'expo-status-bar';
 
 import { getImageUrl } from './2-DrawAI-Helpers/openai';
@@ -15,6 +15,12 @@ const Draw = () => {
     const [imageDownload, setImageDownload] = useState(false);
 
     const fetchData = async () => {
+        if (promptText !== '' || promptText.trim() !== '') {
+            ToastAndroid.show('You forgot to write your dream ?', ToastAndroid.SHORT);
+        }
+        if (promptText.length <= 5) {
+            ToastAndroid.show('Please at least 6 characters.', ToastAndroid.SHORT);
+        }
         if (promptText !== '' || promptText.trim() !== '' || promptText.length > 5) {
             try {
                 setLoading(true);
@@ -34,41 +40,44 @@ const Draw = () => {
     };
 
     return (
-        <View style={styles.container} >
+        <ImageBackground source={require('../../assets/bg-image-createdwith-chatgpt.png')} style={styles.backgroundImage}>
+            <View style={styles.container} >
 
-            {error ? (<Text style={styles.errorMessage}>Error! Please Try Again Later...</Text>) : (
-                <>
-                    {(!imageUrl && !loading && !error) && (
-                        <View style={styles.inputContainer}>
-                            <Input onChangeText={setPromptText} />
-                            <TouchableOpacity style={styles.buttonSend} onPress={() => { fetchData(); Keyboard.dismiss(); }}>
-                                <Text style={styles.buttonSendText}>Send</Text>
-                            </TouchableOpacity>
-                        </View>
-                    )}
+                {error ? (<Text style={styles.errorMessage}>Error! Please Try Again Later...</Text>) : (
+                    <>
+                        {(!imageUrl && !loading && !error) && (
+                            <View style={styles.inputContainer}>
+                                <Input onChangeText={setPromptText} />
+                                <TouchableOpacity style={styles.buttonSend} onPress={() => { fetchData(); Keyboard.dismiss(); }}>
+                                    <Text style={styles.buttonSendText}>Send</Text>
+                                </TouchableOpacity>
+                            </View>
+                        )}
 
-                    {(loading && !error && !imageUrl) && (
-                        <ActivityIndicator size='large' color='black' />
-                    )}
+                        {(loading && !error && !imageUrl) && (
+                            <ActivityIndicator size='large' color='black' />
+                        )}
 
-                    {(imageUrl && !loading && !error && imageDownload) && (
-                        <Text style={styles.loadingMessage}>Image Loading...</Text>
-                    )}
+                        {(imageUrl && !loading && !error && imageDownload) && (
+                            <Text style={styles.loadingMessage}>Image Loading...</Text>
+                        )}
 
-                    {(imageUrl && !imageDownload) && (
-                        <>
-                            <Text style={styles.header}>Your Dream Image</Text>
-                            <Image style={styles.image} source={{ uri: imageUrl }} onLoad={() => setImageDownload(false)} />
-                            <Download imageUrl={imageUrl} />
-                        </>
-                    )}
+                        {(imageUrl && !imageDownload) && (
+                            <>
+                                <Text style={styles.header}>Your Dream Image</Text>
+                                <Text style={styles.headerDescp}>(Please wait until the image is completely loaded.)</Text>
+                                <Image style={styles.image} source={{ uri: imageUrl }} onLoad={() => setImageDownload(false)} />
+                                <Text >Your dream was, {promptText}</Text>
+                                <Download imageUrl={imageUrl} />
+                            </>
+                        )}
+                        <StatusBar style="auto" />
+                    </>
+                )
+                }
 
-                    <StatusBar style="auto" />
-                </>
-            )
-            }
-
-        </View>
+            </View>
+        </ImageBackground>
     );
 };
 
@@ -78,18 +87,32 @@ const styles = StyleSheet.create({
         backgroundColor: 'f0f0f0',
         padding: 20,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    },
+    backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover',
+        justifyContent: 'center',
     },
     header: {
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 10,
     },
+    headerDescp: {
+        color: 'black',
+        fontStyle: 'italic',
+        marginBottom: 50,
+    },
     image: {
         width: '100%',
         height: 300,
         resizeMode: 'cover',
-        marginBottom: 10,
+        marginBottom: 20,
+        borderWidth: 8,
+        borderColor: 'black',
+        borderRadius: 20,
     },
     inputContainer: {
         justifyContent: 'center',

@@ -1,4 +1,4 @@
-import { TouchableOpacity, StyleSheet, Text, View } from 'react-native'
+import { TouchableOpacity, StyleSheet, Text, View, ToastAndroid } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 
@@ -18,7 +18,7 @@ export default function Mainbutton() {
     }, []);
 
     const handleButtonPress = () => {
-        console.log('Butona basıldı');
+        ToastAndroid.show('Welcome!', ToastAndroid.LONG);
         navigation.navigate('ai');
     };
 

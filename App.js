@@ -7,7 +7,7 @@ import Draw from './components/2-DrawAI/draw';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import * as MediaLibrary from 'expo-media-library';
+import Music from './components/1-Intro/1-Intro-Helpers/music';
 
 const Stack = createStackNavigator();
 
@@ -30,9 +30,9 @@ export default function App() {
         </Stack.Screen>
 
       </Stack.Navigator>
+      <Music />
     </NavigationContainer>
   );
-
 };
 
 const styles = StyleSheet.create({

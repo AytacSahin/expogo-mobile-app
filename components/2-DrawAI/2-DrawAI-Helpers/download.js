@@ -1,21 +1,26 @@
 import React from 'react'
-import { Text, StyleSheet, TouchableOpacity, Linking } from 'react-native'
+import { Text, StyleSheet, TouchableOpacity, Linking, ToastAndroid } from 'react-native'
 import * as FileSystem from 'expo-file-system'
+import * as MediaLibrary from 'expo-media-library';
 
 const Download = ({ imageUrl }) => {
 
     const downloadImage = async () => {
         const localUri = `${FileSystem.documentDirectory}dream_image.jpg`;
+        ToastAndroid.show('Download Started...', ToastAndroid.SHORT);
         try {
             const { uri } = await FileSystem.downloadAsync(imageUrl, localUri);
             console.log('File downloaded to:', uri);
             openImageInGallery(uri);
+
         } catch (error) {
             console.error('Error downloading file:', error);
         }
     };
 
     const openImageInGallery = async (uri) => {
+        ToastAndroid.show('Gallery is opening...', ToastAndroid.SHORT);
+
         try {
             if (uri) {
                 await MediaLibrary.saveToLibraryAsync(uri);

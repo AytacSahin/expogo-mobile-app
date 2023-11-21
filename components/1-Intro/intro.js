@@ -3,15 +3,13 @@ import { StyleSheet, View } from 'react-native';
 import { Video } from 'expo-av';
 
 import AnimatedText from './1-Intro-Helpers/animatedtext';
-import Music from './1-Intro-Helpers/music';
 import Mainbutton from './1-Intro-Helpers/mainbutton';
 
 export default function Intro() {
 
-    Music(); // müzik componenti çalıştırıldı.
-
     return (
         <View style={styles.container}>
+
             <Video
                 source={require('../../assets/outer.mp4')}
                 rate={1.0}
@@ -27,6 +25,7 @@ export default function Intro() {
                 <AnimatedText text='Think,  Write   And   Wait' />
                 <Mainbutton />
             </View>
+
             <StatusBar style="auto" />
         </View>
     );
