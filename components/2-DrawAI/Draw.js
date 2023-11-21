@@ -1,19 +1,23 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, ActivityIndicator, Image, Button } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, StyleSheet, ActivityIndicator, Image, TouchableOpacity, Keyboard } from 'react-native'
 import { StatusBar } from 'expo-status-bar';
+
 import { getImageUrl } from './2-DrawAI-Helpers/openai';
-import TextInputExample from './2-DrawAI-Helpers/input';
+import Input from './2-DrawAI-Helpers/input';
+import Download from './2-DrawAI-Helpers/download';
 
 const Draw = () => {
 
     const [imageUrl, setImageUrl] = useState('');
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [promptText, setPromptText] = useState('');
+    const [imageDownload, setImageDownload] = useState(false);
 
-    useEffect(() => {
-        const fetchData = async () => {
+    const fetchData = async () => {
+        if (promptText !== '' || promptText.trim() !== '' || promptText.length > 5) {
             try {
+                setLoading(true);
                 const url = await getImageUrl(promptText);
                 if (url) {
                     setImageUrl(url);
@@ -21,34 +25,49 @@ const Draw = () => {
                     setError(true);
                 }
             } catch (error) {
-                console.error('Bir hata oluştu:', error);
+                console.error('Error:', error);
                 setError(true);
             } finally {
                 setLoading(false);
             }
-        };
-
-        fetchData();
-    }, [promptText]);
+        }
+    };
 
     return (
-        <View style={styles.container}>
-            {loading ? (
-                <ActivityIndicator size='large' color='white' />
-            ) : error ? (
-                <Text style={styles.errorMessage}>Resim yüklenirken bir hata oluştu.</Text>
-            ) : imageUrl ? (
+        <View style={styles.container} >
+
+            {error ? (<Text style={styles.errorMessage}>Error! Please Try Again Later...</Text>) : (
                 <>
-                    <Text style={styles.header}>Hayalindeki Resim</Text>
-                    <Image style={styles.image} source={{ uri: imageUrl }} />
-                    <View style={styles.buttonContainer}>
-                        <Text>İndir</Text>
-                    </View>
+                    {(!imageUrl && !loading && !error) && (
+                        <View style={styles.inputContainer}>
+                            <Input onChangeText={setPromptText} />
+                            <TouchableOpacity style={styles.buttonSend} onPress={() => { fetchData(); Keyboard.dismiss(); }}>
+                                <Text style={styles.buttonSendText}>Send</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
+
+                    {(loading && !error && !imageUrl) && (
+                        <ActivityIndicator size='large' color='black' />
+                    )}
+
+                    {(imageUrl && !loading && !error && imageDownload) && (
+                        <Text style={styles.loadingMessage}>Image Loading...</Text>
+                    )}
+
+                    {(imageUrl && !imageDownload) && (
+                        <>
+                            <Text style={styles.header}>Your Dream Image</Text>
+                            <Image style={styles.image} source={{ uri: imageUrl }} onLoad={() => setImageDownload(false)} />
+                            <Download imageUrl={imageUrl} />
+                        </>
+                    )}
+
+                    <StatusBar style="auto" />
                 </>
-            ) : (
-                <Text style={styles.loadingMessage}>Resim Yükleniyor...</Text>
-            )}
-            <StatusBar style="auto" />
+            )
+            }
+
         </View>
     );
 };
@@ -56,7 +75,7 @@ const Draw = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'red',
+        backgroundColor: 'f0f0f0',
         padding: 20,
         justifyContent: 'center',
         alignItems: 'center'
@@ -72,10 +91,39 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
         marginBottom: 10,
     },
-    buttonContainer: {
-        backgroundColor: 'lightblue',
-        padding: 10,
+    inputContainer: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    buttonSend: {
+        backgroundColor: 'black',
+        width: 120,
+        height: 120,
+        justifyContent: 'center',
         marginTop: 10,
+        marginBottom: 70,
+        borderRadius: 60,
+    },
+    buttonSendText: {
+        color: '#f0f0f0',
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    buttonDownload: {
+        backgroundColor: 'black',
+        width: 120,
+        height: 120,
+        justifyContent: 'center',
+        marginTop: 10,
+        marginBottom: 70,
+        borderRadius: 60,
+    },
+    buttonDownloadText: {
+        color: '#f0f0f0',
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
     },
     loadingMessage: {
         fontSize: 16,

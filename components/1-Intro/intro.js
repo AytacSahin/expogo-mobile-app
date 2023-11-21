@@ -13,7 +13,7 @@ export default function Intro() {
     return (
         <View style={styles.container}>
             <Video
-                source={require('../../assets/Ocean.mp4')}
+                source={require('../../assets/outer.mp4')}
                 rate={1.0}
                 volume={1.0}
                 isMuted={true}
@@ -24,7 +24,7 @@ export default function Intro() {
                 style={StyleSheet.absoluteFillObject} // Videoyu ekranı kaplayacak şekilde ayarladım.
             />
             <View style={styles.overlay}>
-                <AnimatedText text='“Hayattaki sıradan şeyleri sıra dışı bir şekilde yaptığınızda, dünyanın dikkatini çekeceksiniz.” George Washington Carver' style={styles.text}/>
+                <AnimatedText text='Think,  Write   And   Wait' />
                 <Mainbutton />
             </View>
             <StatusBar style="auto" />
@@ -35,16 +35,9 @@ export default function Intro() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: '#f0f0f0',
     },
     overlay: {
         ...StyleSheet.absoluteFillObject,
-    },
-    text: {
-        fontSize: 28,
-        marginTop: 80,
-        marginLeft: 20,
-        marginRight: 40,
-    },
-
+    }
 });

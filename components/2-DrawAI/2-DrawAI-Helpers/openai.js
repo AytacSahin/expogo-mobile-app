@@ -28,6 +28,7 @@ const getImageUrl = async (promptText) => {
 
         const responseData = await response.json();
         console.log(responseData);
+        console.log("KEY::::", apiKey);
         return responseData.data[0].url;
 
     } catch (error) {

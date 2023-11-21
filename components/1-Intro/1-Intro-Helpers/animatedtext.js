@@ -10,7 +10,7 @@ const AnimatedText = ({ text, style }) => {
       const timer = setTimeout(() => {
         setDisplayedText((prevText) => prevText + text[currentIndex]);
         setCurrentIndex((prevIndex) => prevIndex + 1);
-      }, 50); // Her harf için 100ms bekleme süresi
+      }, 300); // Her harf için 20ms bekleme süresi
       return () => clearTimeout(timer);
     }
   }, [currentIndex, text]);
@@ -24,7 +24,14 @@ const AnimatedText = ({ text, style }) => {
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 50,
+    fontSize: 40,
+    color: '#f0f0f0',
+    letterSpacing: 32,
+    lineHeight: 130,
+    fontWeight: 'bold',
+    marginTop: 25,
+    marginLeft: 25,
+    marginRight: 25,
   },
 });
 

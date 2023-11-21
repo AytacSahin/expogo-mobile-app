@@ -7,6 +7,8 @@ import Draw from './components/2-DrawAI/draw';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import * as MediaLibrary from 'expo-media-library';
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -16,7 +18,6 @@ export default function App() {
       <Stack.Navigator>
 
         <Stack.Screen name="Home" options={{ headerShown: false }}>
-          {/* headerShown: üst menüyü gizliyor. */}
           {(props) => (
             <View style={styles.homecontainer}>
               <StatusBar style="auto" />
@@ -37,7 +38,7 @@ export default function App() {
 const styles = StyleSheet.create({
   homecontainer: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#f0f0f0',
   },
 });
 

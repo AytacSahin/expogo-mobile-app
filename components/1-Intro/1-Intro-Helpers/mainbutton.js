@@ -11,7 +11,7 @@ export default function Mainbutton() {
         // belirli bir süre sonra butonu gösterdim:
         const timer = setTimeout(() => {
             setShowButton(true);
-        }, 5000);
+        }, 2000);
 
         // Timer temizleme
         return () => clearTimeout(timer);
@@ -26,7 +26,7 @@ export default function Mainbutton() {
         <View style={styles.container}>
             {showButton && (
                 <TouchableOpacity onPress={handleButtonPress} style={styles.button}>
-                    <Text style={styles.buttonText}>Continue</Text>
+                    <Text style={styles.buttonText}>Draw a Dream</Text>
                 </TouchableOpacity>
             )}
         </View>
@@ -45,12 +45,13 @@ const styles = StyleSheet.create({
         height: 120,
         justifyContent: 'center',
         padding: 15,
-        borderRadius: 10,
         marginBottom: 70,
         borderRadius: 60,
+        borderWidth: 6,
+        borderColor: '#f0f0f0'
     },
     buttonText: {
-        color: 'white',
+        color: '#f0f0f0',
         fontSize: 18,
         fontWeight: 'bold',
         textAlign: 'center',
