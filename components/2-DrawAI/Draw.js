@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, ActivityIndicator, Image, TouchableOpacity, Keyboard, ToastAndroid, ImageBackground } from 'react-native'
+import { View, Text, StyleSheet, ActivityIndicator, Image, TouchableOpacity, Keyboard, ImageBackground } from 'react-native'
 import { StatusBar } from 'expo-status-bar';
+import Toast from 'react-native-root-toast';
 
 import { getImageUrl } from './2-DrawAI-Helpers/openai';
 import Input from './2-DrawAI-Helpers/input';
@@ -15,11 +16,23 @@ const Draw = () => {
     const [imageDownload, setImageDownload] = useState(false);
 
     const fetchData = async () => {
-        if (promptText !== '' || promptText.trim() !== '') {
-            ToastAndroid.show('You forgot to write your dream ?', ToastAndroid.SHORT);
+        if (promptText == '' || promptText.trim() == '' || promptText.length == 0) {
+            let toast = Toast.show('You forgot to write your dream ?', {
+                duration: Toast.durations.LONG,
+            });
+            return;
         }
-        if (promptText.length <= 5) {
-            ToastAndroid.show('Please at least 6 characters.', ToastAndroid.SHORT);
+        if (promptText.length >= 1 && promptText.length <= 5) {
+            let toast = Toast.show('Please enter more than 6 characters.', {
+                duration: Toast.durations.LONG,
+            });
+            return;
+        }
+        if (promptText.length > 30) {
+            let toast = Toast.show('Please do not enter more than 30 characters.', {
+                duration: Toast.durations.LONG,
+            });
+            return;
         }
         if (promptText !== '' || promptText.trim() !== '' || promptText.length > 5) {
             try {

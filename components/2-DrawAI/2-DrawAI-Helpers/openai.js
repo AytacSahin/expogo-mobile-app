@@ -9,7 +9,7 @@ const getImageUrl = async (promptText) => {
 
         const data = {
             model: 'dall-e-3',
-            prompt: promptText || 'A photograph of a black Siamese cat.',
+            prompt: promptText,
             n: 1,
             size: "1024x1024"
         };

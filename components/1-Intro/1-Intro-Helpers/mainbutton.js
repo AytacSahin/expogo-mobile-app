@@ -1,6 +1,7 @@
-import { TouchableOpacity, StyleSheet, Text, View, ToastAndroid } from 'react-native'
+import { TouchableOpacity, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-root-toast';
 
 export default function Mainbutton() {
 
@@ -17,17 +18,30 @@ export default function Mainbutton() {
         return () => clearTimeout(timer);
     }, []);
 
-    const handleButtonPress = () => {
-        ToastAndroid.show('Welcome!', ToastAndroid.LONG);
-        navigation.navigate('ai');
+    const handleDrawPress = () => {
+        let toast = Toast.show('Welcome!', {
+            duration: Toast.durations.LONG,
+        });
+        navigation.navigate('drawAI');
+    };
+    const handleChangePress = () => {
+        let toast = Toast.show('Welcome!', {
+            duration: Toast.durations.LONG,
+        });
+        navigation.navigate('changeAI');
     };
 
     return (
         <View style={styles.container}>
             {showButton && (
-                <TouchableOpacity onPress={handleButtonPress} style={styles.button}>
-                    <Text style={styles.buttonText}>Draw a Dream</Text>
-                </TouchableOpacity>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity onPress={handleDrawPress} style={styles.button}>
+                        <Text style={styles.buttonText}>Draw a Dream</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={handleChangePress} style={styles.button}>
+                        <Text style={styles.buttonText}>Change to Dream</Text>
+                    </TouchableOpacity>
+                </View>
             )}
         </View>
     );
@@ -39,13 +53,19 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end', // Sayfanın altına doğru yerleştir
         alignItems: 'center', // Yatayda ortala
     },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginHorizontal: 20,
+    },
     button: {
         backgroundColor: 'black',
         width: 120,
         height: 120,
         justifyContent: 'center',
         padding: 15,
-        marginBottom: 70,
+        margin: 40,
         borderRadius: 60,
         borderWidth: 6,
         borderColor: '#f0f0f0'
