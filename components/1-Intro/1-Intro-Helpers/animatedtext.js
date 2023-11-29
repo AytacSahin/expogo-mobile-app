@@ -6,12 +6,18 @@ const AnimatedText = ({ text, style }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    if (currentIndex < text.length) {
+    let isMounted = true; // Eklenen satır
+
+    if (currentIndex < text.length && isMounted) {
       const timer = setTimeout(() => {
         setDisplayedText((prevText) => prevText + text[currentIndex]);
         setCurrentIndex((prevIndex) => prevIndex + 1);
-      }, 300); // Her harf için 20ms bekleme süresi
-      return () => clearTimeout(timer);
+      }, 300);
+
+      return () => {
+        clearTimeout(timer);
+        isMounted = false; // Eklenen satır
+      };
     }
   }, [currentIndex, text]);
 

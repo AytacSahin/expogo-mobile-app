@@ -1,5 +1,5 @@
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import Toast from 'react-native-root-toast';
 
@@ -8,7 +8,7 @@ export default function Mainbutton() {
     const navigation = useNavigation();
     const [showButton, setShowButton] = React.useState(false);
 
-    React.useEffect(() => {
+    useEffect(() => {
         // belirli bir süre sonra butonu gösterdim:
         const timer = setTimeout(() => {
             setShowButton(true);
@@ -19,16 +19,16 @@ export default function Mainbutton() {
     }, []);
 
     const handleDrawPress = () => {
-        let toast = Toast.show('Welcome!', {
+        Toast.show('Welcome!', {
             duration: Toast.durations.LONG,
         });
         navigation.navigate('drawAI');
     };
     const handleChangePress = () => {
-        let toast = Toast.show('Welcome!', {
+        Toast.show('Welcome!', {
             duration: Toast.durations.LONG,
         });
-        navigation.navigate('changeAI');
+        navigation.navigate('speakAI');
     };
 
     return (

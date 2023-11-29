@@ -6,6 +6,7 @@ import Toast from 'react-native-root-toast';
 import { getImageUrl } from './2-DrawAI-Helpers/openai';
 import Input from './2-DrawAI-Helpers/input';
 import Download from './2-DrawAI-Helpers/download';
+import Speak from './2-DrawAI-Helpers/speak';
 
 const Draw = () => {
 
@@ -17,19 +18,19 @@ const Draw = () => {
 
     const fetchData = async () => {
         if (promptText == '' || promptText.trim() == '' || promptText.length == 0) {
-            let toast = Toast.show('You forgot to write your dream ?', {
+            Toast.show('You forgot to write your dream ?', {
                 duration: Toast.durations.LONG,
             });
             return;
         }
         if (promptText.length >= 1 && promptText.length <= 5) {
-            let toast = Toast.show('Please enter more than 6 characters.', {
+            Toast.show('Please enter more than 6 characters.', {
                 duration: Toast.durations.LONG,
             });
             return;
         }
         if (promptText.length > 30) {
-            let toast = Toast.show('Please do not enter more than 30 characters.', {
+            Toast.show('Please do not enter more than 30 characters.', {
                 duration: Toast.durations.LONG,
             });
             return;
@@ -82,6 +83,7 @@ const Draw = () => {
                                 <Image style={styles.image} source={{ uri: imageUrl }} onLoad={() => setImageDownload(false)} />
                                 <Text >Your dream was, {promptText}</Text>
                                 <Download imageUrl={imageUrl} />
+                                <Speak ttsPrompt={promptText} />
                             </>
                         )}
                         <StatusBar style="auto" />
