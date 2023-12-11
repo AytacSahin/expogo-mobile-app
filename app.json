@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "mymobileapp",
-    "slug": "mymobileapp",
+    "name": "dreamit",
+    "slug": "dreamit",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,7 +15,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Uygulama kamerayı kullanmak istiyor.",
+        "NSPhotoLibraryUsageDescription": "Uygulama fotoğrafları kullanmak istiyor."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -23,6 +27,7 @@
         "backgroundColor": "#f0f0f0"
       },
       "permissions": [
+        "CAMERA",
         "CAMERA_ROLL",
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE"

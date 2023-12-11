@@ -9,7 +9,7 @@ import { RootSiblingParent } from 'react-native-root-siblings';
 import Intro from './components/1-Intro/intro';
 import Music from './components/1-Intro/1-Intro-Helpers/music';
 import Draw from './components/2-DrawAI/draw';
-import Speak from './components/2-DrawAI/2-DrawAI-Helpers/speak';
+import Change from './components/3-PhotoEditorAI/change';
 
 const Stack = createStackNavigator();
 
@@ -30,7 +30,7 @@ export default function App() {
           </Stack.Screen>
 
           <Stack.Screen name="drawAI" options={{ headerShown: false }} component={Draw} />
-          <Stack.Screen name="speakAI" options={{ headerShown: false }} component={Speak} />
+          <Stack.Screen name="changeAI" options={{ headerShown: false }} component={Change} />
 
         </Stack.Navigator>
         <Music />

@@ -28,7 +28,7 @@ export default function Mainbutton() {
         Toast.show('Welcome!', {
             duration: Toast.durations.LONG,
         });
-        navigation.navigate('speakAI');
+        navigation.navigate('changeAI');
     };
 
     return (
@@ -64,8 +64,9 @@ const styles = StyleSheet.create({
         width: 120,
         height: 120,
         justifyContent: 'center',
-        padding: 15,
-        margin: 40,
+        padding: 5,
+        margin: 8,
+        marginBottom: 40,
         borderRadius: 60,
         borderWidth: 6,
         borderColor: '#f0f0f0'

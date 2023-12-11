@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ActivityIndicator, Image, TouchableOpacity, Key
 import { StatusBar } from 'expo-status-bar';
 import Toast from 'react-native-root-toast';
 
-import { getImageUrl } from './2-DrawAI-Helpers/openai';
+import { getImageUrl } from './2-DrawAI-Helpers/openai-draw';
 import Input from './2-DrawAI-Helpers/input';
 import Download from './2-DrawAI-Helpers/download';
 import Speak from './2-DrawAI-Helpers/speak';
@@ -18,7 +18,7 @@ const Draw = () => {
 
     const fetchData = async () => {
         if (promptText == '' || promptText.trim() == '' || promptText.length == 0) {
-            Toast.show('You forgot to write your dream ?', {
+            Toast.show('Forgot to write your dream ?', {
                 duration: Toast.durations.LONG,
             });
             return;
@@ -59,7 +59,7 @@ const Draw = () => {
 
                 {error ? (<Text style={styles.errorMessage}>Error! Please Try Again Later...</Text>) : (
                     <>
-                        {(!imageUrl && !loading && !error) && (
+                        {(!imageUrl && !loading) && (
                             <View style={styles.inputContainer}>
                                 <Input onChangeText={setPromptText} />
                                 <TouchableOpacity style={styles.buttonSend} onPress={() => { fetchData(); Keyboard.dismiss(); }}>
@@ -68,11 +68,11 @@ const Draw = () => {
                             </View>
                         )}
 
-                        {(loading && !error && !imageUrl) && (
+                        {(loading && !imageUrl) && (
                             <ActivityIndicator size='large' color='black' />
                         )}
 
-                        {(imageUrl && !loading && !error && imageDownload) && (
+                        {(imageUrl && !loading && imageDownload) && (
                             <Text style={styles.loadingMessage}>Image Loading...</Text>
                         )}
 
